@@ -1,5 +1,7 @@
 package com.github.mistra.graphqldemo.resolver;
 
+import java.util.List;
+
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.github.mistra.graphqldemo.model.Author;
 import com.github.mistra.graphqldemo.repository.AuthorRepository;
@@ -14,5 +16,9 @@ public class AuthorQuery implements GraphQLQueryResolver {
 
     public Author getAuthor(String id) {
         return authorRepo.getById(id);
+    }
+
+    public List<Author> getAuthors() {
+        return authorRepo.getAll();
     }
 }

@@ -15,4 +15,11 @@ type Query {
     getBook(id: ID!): Book
     getBooks: [Book]
     getAuthor(id: ID!): Author
+    getAuthors: [Author]
+}
+
+type Mutation {
+    createAuthor(name: String!): Author!
+    updateAuthor(id: ID!, name: String): Author
+    deleteAuthor(id: ID!): ID!
 }
