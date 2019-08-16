@@ -1,6 +1,7 @@
 package com.github.mistra.graphqldemo.repository;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -32,5 +33,9 @@ public class BookRepository {
 
     public Book getById(String id) {
         return books.get(id);
+    }
+
+    public List<Book> getByAuthorId(String id) {
+        return books.values().stream().filter(b -> b.getAuthorId().equals(id)).collect(Collectors.toList());
     }
 }
