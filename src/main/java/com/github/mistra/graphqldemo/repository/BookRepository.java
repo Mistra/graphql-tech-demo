@@ -1,6 +1,7 @@
 package com.github.mistra.graphqldemo.repository;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -16,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 public class BookRepository {
+    //TODO: spostare in database
     @Value("${dbfiles.bookspath}")
     String bookPath;
     
@@ -33,6 +35,10 @@ public class BookRepository {
 
     public Book getById(String id) {
         return books.get(id);
+    }
+
+    public List<Book> getAll() {
+        return new ArrayList<Book>(books.values());
     }
 
     public List<Book> getByAuthorId(String id) {

@@ -13,5 +13,6 @@ type Author {
 
 type Query {
     getBook(id: ID!): Book
+    getBooks: [Book]
     getAuthor(id: ID!): Author
 }

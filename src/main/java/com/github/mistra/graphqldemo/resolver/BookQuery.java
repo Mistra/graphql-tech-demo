@@ -1,5 +1,7 @@
 package com.github.mistra.graphqldemo.resolver;
 
+import java.util.List;
+
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.github.mistra.graphqldemo.model.Book;
 import com.github.mistra.graphqldemo.repository.BookRepository;
@@ -14,5 +16,9 @@ public class BookQuery implements GraphQLQueryResolver {
 
     public Book getBook(String id) {
         return bookRepo.getById(id);
+    }
+
+    public List<Book> getBooks() {
+        return bookRepo.getAll();
     }
 }
