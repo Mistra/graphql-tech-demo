@@ -1,1 +1,3 @@
-
+dbfiles:
+    bookspath: books.txt
+    authorspath: authors.txt

@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Query implements GraphQLQueryResolver {
+public class BookQuery implements GraphQLQueryResolver {
     @Autowired
     BookRepository bookRepo;
 

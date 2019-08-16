@@ -31,7 +31,7 @@ build/
 .vscode/
 
 ### Linux ###
-.attach
+.attach*
 
 ### Maven ###
 .mvn
