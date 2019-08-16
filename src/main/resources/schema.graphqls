@@ -2,9 +2,14 @@ type Book {
     id: ID!
     title: String!
     description: String!
-    authorId: String!
+}
+
+type Author {
+    id: ID!
+    name: String!
 }
 
 type Query {
     getBook(id: ID!): Book
+    getAuthor(id: ID!): Author
 }

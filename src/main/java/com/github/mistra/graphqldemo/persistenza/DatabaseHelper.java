@@ -20,11 +20,24 @@ public class DatabaseHelper {
         return new Book(data[0], data[1], data[2], data[3]);
     }
 
+    private Author StringToAuthor(String s) {
+        String[] data = s.split(";");
+        return new Author(data[0], data[1]);
+    }
+
     public List<Book> getBooks(String booksPath) throws IOException {
         log.debug("attempting to fetch books at path " + booksPath);
         Path path = Paths.get(booksPath);
         try(Stream<String> stream = Files.lines(path)) {
             return stream.map(this::StringToBook).collect(Collectors.toList());
+        }
+    }
+
+    public List<Author> getAuthors(String authorsPath) throws IOException {
+        log.debug("attempting to fetch authors at path " + authorsPath);
+        Path path = Paths.get(authorsPath);
+        try(Stream<String> stream = Files.lines(path)) {
+            return stream.map(this::StringToAuthor).collect(Collectors.toList());
         }
     }
 }
