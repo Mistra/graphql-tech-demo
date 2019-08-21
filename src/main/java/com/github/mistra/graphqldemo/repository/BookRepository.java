@@ -41,6 +41,10 @@ public class BookRepository {
         return new ArrayList<Book>(books.values());
     }
 
+    public List<Book> getByTitleSubstring(String substring) {
+        return new ArrayList<Book>(books.values().stream().filter(s -> s.getTitle().contains(substring)).collect(Collectors.toList()));
+    }
+
     public List<Book> getByAuthorId(String id) {
         return books.values().stream().filter(b -> b.getAuthorId().equals(id)).collect(Collectors.toList());
     }

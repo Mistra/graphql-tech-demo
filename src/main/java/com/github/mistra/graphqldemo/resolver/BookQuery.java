@@ -18,6 +18,10 @@ public class BookQuery implements GraphQLQueryResolver {
         return bookRepo.getById(id);
     }
 
+    public List<Book> getBooksByTitle(String title) {
+        return bookRepo.getByTitleSubstring(title);
+    }
+
     public List<Book> getBooks() {
         return bookRepo.getAll();
     }
