@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -41,9 +40,7 @@ public class AuthorRepository {
     }
 
     public Author createAuthor(String name) throws IOException {
-        String id = UUID.randomUUID().toString();
-        Author author = new Author(id, name);
-        dbHelper.createAuthor(author);
+        Author author = dbHelper.createAuthor(name);
         authors.put(author.getId(), author);
         return author;
     }
