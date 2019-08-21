@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.annotation.PostConstruct;
+
 import com.github.mistra.graphqldemo.model.Book;
 import com.github.mistra.graphqldemo.persistenza.DatabaseHelper;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
@@ -17,20 +19,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component
 public class BookRepository {
-    //TODO: spostare in database
-    @Value("${dbfiles.bookspath}")
-    String bookPath;
-    
-    //TODO: scoprire perchè autowire non funziona
-    private DatabaseHelper dbHelper = new DatabaseHelper();
+
+    @Autowired
+    private DatabaseHelper dbHelper;
 
     private Map<String, Book> books;
 
-    public BookRepository() throws IOException {
-        log.debug("books path: " + bookPath);
-        //TODO: mettere a posto autoconfig
-        bookPath = "books.txt";
-        books = dbHelper.getBooks(bookPath).stream().collect(Collectors.toMap(Book::getId, b -> b));
+    @PostConstruct
+    public void postConstruct() throws IOException {
+        log.debug("initializing Map of Books");
+        books = dbHelper.getBooks().stream().collect(Collectors.toMap(Book::getId, b -> b));
     }
 
     public Book getById(String id) {
