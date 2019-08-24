@@ -1,6 +1,6 @@
 package com.github.mistra.graphqldemo.repository;
 
-import java.io.IOException;
+//import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +26,7 @@ public class BookRepository {
     private Map<String, Book> books;
 
     @PostConstruct
-    public void postConstruct() throws IOException {
+    public void postConstruct() {
         log.debug("initializing Map of Books");
         books = dbHelper.getBooks().stream().collect(Collectors.toMap(Book::getId, b -> b));
     }
