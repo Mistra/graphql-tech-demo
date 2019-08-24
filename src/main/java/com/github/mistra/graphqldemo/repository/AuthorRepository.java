@@ -1,6 +1,5 @@
 package com.github.mistra.graphqldemo.repository;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +25,7 @@ public class AuthorRepository {
     private Map<String, Author> authors;
 
     @PostConstruct
-    public void postConstruct() throws IOException {
+    public void postConstruct() {
         log.debug("initializing Map of Authors");
         authors = dbHelper.getAuthors().collect(Collectors.toMap(Author::getId, a -> a));
     }
@@ -39,13 +38,13 @@ public class AuthorRepository {
         return new ArrayList<Author>(authors.values());
     }
 
-    public Author createAuthor(String name) throws IOException {
+    public Author createAuthor(String name) {
         Author author = dbHelper.createAuthor(name);
         authors.put(author.getId(), author);
         return author;
     }
 
-    public Author updateAuthor(String id, String name) throws IOException {
+    public Author updateAuthor(String id, String name) {
         Author author = getById(id);
         if (name == null)
             return author;
@@ -54,7 +53,7 @@ public class AuthorRepository {
         return author;
     }
 
-    public void deleteAuthor(String id) throws IOException {
+    public void deleteAuthor(String id) {
         authors.remove(id);
         dbHelper.deleteAuthor(id);
     }
