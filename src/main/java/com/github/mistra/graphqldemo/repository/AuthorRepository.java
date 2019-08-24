@@ -28,7 +28,7 @@ public class AuthorRepository {
     @PostConstruct
     public void postConstruct() throws IOException {
         log.debug("initializing Map of Authors");
-        authors = dbHelper.getAuthors().stream().collect(Collectors.toMap(Author::getId, a -> a));
+        authors = dbHelper.getAuthors().collect(Collectors.toMap(Author::getId, a -> a));
     }
 
     public Author getById(String id) {

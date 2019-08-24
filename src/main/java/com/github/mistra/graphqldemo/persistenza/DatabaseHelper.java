@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -58,12 +57,12 @@ public class DatabaseHelper {
         this.authorsPath = Paths.get(dbConf.getAuthorsPath());
     }
 
-    public List<Book> getBooks() {
-        return readFile(booksPath).map(this::stringToBook).collect(Collectors.toList());
+    public Stream<Book> getBooks() {
+        return readFile(booksPath).map(this::stringToBook);
     }
 
-    public List<Author> getAuthors() {
-        return readFile(authorsPath).map(this::stringToAuthor).collect(Collectors.toList());
+    public Stream<Author> getAuthors() {
+        return readFile(authorsPath).map(this::stringToAuthor);
     }
 
     public Author createAuthor(String name) {
@@ -82,7 +81,7 @@ public class DatabaseHelper {
         writeFile(authorsPath, readFile(authorsPath).filter(s -> !id.equals(lineToId(s))));
     }
 
-    //** Helper functions **//
+    // ** Helper functions **//
 
     // This is horrible, but fine for the demo
     String getCounter(Stream<String> strings) {
