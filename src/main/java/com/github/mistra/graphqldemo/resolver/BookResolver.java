@@ -1,5 +1,7 @@
 package com.github.mistra.graphqldemo.resolver;
 
+import java.util.Optional;
+
 import com.coxautodev.graphql.tools.GraphQLResolver;
 import com.github.mistra.graphqldemo.model.*;
 import com.github.mistra.graphqldemo.repository.AuthorRepository;
@@ -15,8 +17,8 @@ public class BookResolver implements GraphQLResolver<Book> {
     @Autowired
     AuthorRepository authorRepo;
 
-    public Author getAuthor(Book book) {
+    public Optional<Author> getAuthor(Book book) {
         log.debug("getting infos of author");
-        return authorRepo.getById(book.getAuthorId());
+        return authorRepo.findById(book.getAuthorId());
     }
 }

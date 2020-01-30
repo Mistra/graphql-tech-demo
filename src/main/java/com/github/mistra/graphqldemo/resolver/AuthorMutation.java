@@ -1,5 +1,7 @@
 package com.github.mistra.graphqldemo.resolver;
 
+import java.util.Optional;
+
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
 import com.github.mistra.graphqldemo.model.Author;
 import com.github.mistra.graphqldemo.repository.AuthorRepository;
@@ -18,17 +20,29 @@ public class AuthorMutation implements GraphQLMutationResolver {
 
     public Author createAuthor(String name) {
         log.debug("author to be created: " + name);
-        return authorRepo.createAuthor(name);
+        Author author = new Author(name);
+        authorRepo.save(author);
+        log.debug("author created with id: " + author.getId());
+        return author;
     }
 
-    public Author updateAuthor(String id, String name) {
-        log.debug("author to be changed: " + id + " " + name);
-        return authorRepo.updateAuthor(id, name);
+    public Optional<Author> updateAuthor(Long id, String name) {
+        Optional<Author> author = authorRepo.findById(id);
+        author.ifPresent(a -> {
+            a.setName(name);
+            authorRepo.save(a);
+            log.debug("author updated");
+        });
+        return author;
     }
 
-    public String deleteAuthor(String id) {
-        log.debug("author to be delete: " + id);
-        authorRepo.deleteAuthor(id);
-        return id;
+    public Boolean deleteAuthor(Long id) {
+        log.debug("author to be deleted: " + id);
+
+        if (authorRepo.findById(id).isPresent()) {
+            authorRepo.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

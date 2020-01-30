@@ -2,7 +2,7 @@ type Book {
     id: ID!
     title: String!
     description: String!
-    author: Author!
+    author: Author
 }
 
 type Author {
@@ -22,5 +22,8 @@ type Query {
 type Mutation {
     createAuthor(name: String!): Author!
     updateAuthor(id: ID!, name: String): Author
-    deleteAuthor(id: ID!): ID!
+    deleteAuthor(id: ID!): Boolean!
+
+    createBook(authorId: ID!, title: String!, description: String!): Book!
+    deleteBook(id: ID!): Boolean!
 }

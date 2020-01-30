@@ -1,3 +1,24 @@
-dbfiles:
-    bookspath: books.txt
-    authorspath: authors.txt
+logging:
+  level:
+    root: WARN
+    com.github.mistra.graphqldemo: DEBUG
+
+#spring.main.banner-mode: off
+
+spring.datasource.hikari:
+  connectionTimeout: 20000
+  maximumPoolSize: 5
+
+#logging.pattern.console=%-5level %logger{36} - %msg%n
+
+## MySQL
+spring.datasource:
+  url: jdbc:mysql://127.0.0.1:3306/testdb
+  username: mistra
+  password: mistra
+
+#`hibernate_sequence' doesn't exist
+spring.jpa.hibernate.use-new-id-generator-mappings: false
+
+#drop n create table again, good for testing, comment this in production
+spring.jpa.hibernate.ddl-auto: create
