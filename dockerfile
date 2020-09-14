@@ -25,4 +25,3 @@ ADD target/graphqltechdemo-*.jar app.jar
 EXPOSE 8080
 ENV JAVA_OPTS=""
 CMD ["java", "-jar", "./app.jar"]
-# ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app.jar" ]

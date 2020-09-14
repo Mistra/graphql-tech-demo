@@ -1,11 +1,27 @@
 version: 0.2
  
 phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws --version
+      - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
+      - REPOSITORY_URI=337817221637.dkr.ecr.us-east-2.amazonaws.com/enduscan-repo
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
       - mvn clean
       - mvn install
-artifacts:
-  files:
-    - 'Dockerfile'
-    - 'target/graphqltechdemo-0.0.1-SNAPSHOT.jar'
+      - docker build -t $REPOSITORY_URI:latest .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker images...
+      - docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+# artifacts:
+#   files:
+#     - 'Dockerfile'
+#     - 'target/graphqltechdemo-0.0.1-SNAPSHOT.jar'
